@@ -40,13 +40,13 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'py-2 sm:py-3' : 'py-3 sm:py-5'}`}>
-      <nav className={`mx-auto max-w-7xl px-4 sm:px-6 transition-all duration-500 ${
+    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'py-2 sm:py-3' : 'py-3 sm:py-5'}`}>
+      <nav className={`mx-auto max-w-7xl px-4 sm:px-6 transition-all duration-300 ${
         scrolled 
-          ? 'glass-effect shadow-xl rounded-2xl' 
-          : 'bg-transparent'
+          ? 'glass-effect shadow-xl sm:rounded-2xl bg-slate-900/95' 
+          : 'bg-slate-900/80 sm:bg-transparent'
       }`}>
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-3 sm:py-4">
           {/* Logo */}
           <button
             onClick={() => scrollTo('hero')}
@@ -92,19 +92,31 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Full Screen Overlay */}
         {open && (
-          <div className="md:hidden py-4 border-t border-slate-700 space-y-2">
-            {links.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className="block w-full text-left px-4 py-2 text-sm font-medium text-slate-300 hover:text-teal-400 hover:bg-slate-800 rounded-lg transition-all"
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
+          <>
+            {/* Backdrop */}
+            <div 
+              className="md:hidden fixed inset-0 bg-black/90 z-40"
+              onClick={() => setOpen(false)}
+            />
+            
+            {/* Menu Content */}
+            <div className="md:hidden fixed inset-x-4 top-20 z-50 bg-slate-900 rounded-3xl border-2 border-teal-500/30 shadow-2xl shadow-teal-500/20 p-8 space-y-2">
+              <div className="text-center mb-6">
+                <p className="text-teal-400 text-sm font-semibold uppercase tracking-wider">Menu</p>
+              </div>
+              {links.map((link, index) => (
+                <button
+                  key={link.id}
+                  onClick={() => scrollTo(link.id)}
+                  className="block w-full text-center px-6 py-4 text-lg font-bold text-slate-100 hover:text-teal-400 hover:bg-teal-500/10 rounded-xl transition-all duration-200 border-2 border-transparent hover:border-teal-500/30 active:scale-95"
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </nav>
     </header>

@@ -24,6 +24,9 @@ const titles = [
 export default function Hero() {
   const { text: displayText, cursor: showCursor } = useTypewriter(titles, 80, 50, 1500)
 
+  // Detect mobile for disabling heavy animations
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20">
       {/* Dot Pattern Background */}
@@ -32,11 +35,11 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-transparent" />
       </div>
 
-      {/* Floating Gradient Orbs */}
+      {/* Floating Gradient Orbs - Static on mobile */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-40 -left-40 w-64 sm:w-96 h-64 sm:h-96 bg-teal-400/10 rounded-full blur-3xl animate-pulse-glow-dramatic" />
-        <div className="absolute bottom-40 -right-40 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse-glow-dramatic" style={{ animationDelay: '3s' }} />
-        <div className="absolute top-1/2 left-1/2 w-56 sm:w-80 h-56 sm:h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse-glow-dramatic" style={{ animationDelay: '1.5s' }} />
+        <div className={`absolute top-40 -left-40 w-64 sm:w-96 h-64 sm:h-96 bg-teal-400/10 rounded-full blur-3xl ${!isMobile ? 'animate-pulse-glow-dramatic' : ''}`} />
+        <div className={`absolute bottom-40 -right-40 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl ${!isMobile ? 'animate-pulse-glow-dramatic' : ''}`} style={{ animationDelay: '3s' }} />
+        <div className={`absolute top-1/2 left-1/2 w-56 sm:w-80 h-56 sm:h-80 bg-teal-500/10 rounded-full blur-3xl ${!isMobile ? 'animate-pulse-glow-dramatic' : ''}`} style={{ animationDelay: '1.5s' }} />
       </div>
 
       <div className="mx-auto max-w-6xl w-full">

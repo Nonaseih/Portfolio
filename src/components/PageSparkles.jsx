@@ -31,9 +31,17 @@ const Sparkle = ({ x, y, id }) => {
 export default function PageSparkles() {
   const [sparkles, setSparkles] = useState([])
   const [enabled, setEnabled] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    if (!enabled) return
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (!enabled || isMobile) return
 
     const handleMouseMove = (e) => {
       const x = e.clientX
@@ -53,7 +61,7 @@ export default function PageSparkles() {
     <>
       <button
         onClick={() => setEnabled(!enabled)}
-        className="fixed bottom-6 left-6 z-40 px-4 py-2 rounded-xl border border-teal-200/30 dark:border-teal-700/50 bg-gradient-to-br from-white/80 to-cream-50/50 dark:from-teal-900/80 dark:to-teal-950/80 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 hover:border-teal-300/60 dark:hover:border-teal-500 transition duration-300 cursor-pointer backdrop-blur-sm shadow-sm"
+        className="hidden md:flex fixed bottom-6 left-6 z-40 px-4 py-2 rounded-xl border border-teal-200/30 dark:border-teal-700/50 bg-gradient-to-br from-white/80 to-cream-50/50 dark:from-teal-900/80 dark:to-teal-950/80 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-400 hover:border-teal-300/60 dark:hover:border-teal-500 transition duration-300 cursor-pointer backdrop-blur-sm shadow-sm"
         title="Toggle sparkles"
       >
         ✨ {enabled ? 'On' : 'Off'}

@@ -135,3 +135,64 @@ body {
   background: #14b8a6;
   color: #ffffff;
 }
+
+/* Mobile Optimizations - Reduce animations to prevent twitching */
+@media (max-width: 768px) {
+  /* Disable transforms and complex animations that cause twitching */
+  * {
+    will-change: auto !important;
+  }
+  
+  /* Simplify blur effects on mobile */
+  .blur-3xl {
+    filter: blur(40px) !important;
+  }
+  
+  /* Disable backdrop-filter on mobile for performance */
+  .backdrop-blur-md,
+  .backdrop-blur-xl,
+  .backdrop-blur-sm {
+    backdrop-filter: none !important;
+    background-color: rgba(15, 23, 42, 0.95) !important;
+  }
+  
+  /* Simplify glass effect on mobile */
+  .glass-effect {
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: none !important;
+  }
+  
+  /* Disable parallax effects */
+  [style*="transform"] {
+    transform: none !important;
+  }
+  
+  /* Simplify gradient animations */
+  .animate-pulse-glow-dramatic {
+    animation: none !important;
+    opacity: 0.15 !important;
+  }
+  
+  /* Keep essential transitions but make them faster */
+  * {
+    transition-duration: 0.15s !important;
+  }
+  
+  /* Disable hover effects that can cause issues on touch */
+  *:hover {
+    transform: none !important;
+  }
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
