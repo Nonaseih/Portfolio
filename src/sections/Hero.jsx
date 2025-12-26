@@ -73,10 +73,12 @@ export default function Hero() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-['Playfair_Display'] font-bold leading-none mb-4 sm:mb-6">
                 <span className="text-slate-100">Hi, I'm</span>
                 <br />
-                <span className="inline-block min-w-[200px] sm:min-w-[280px] md:min-w-[400px] bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
-                  {displayText}
+                <span className="inline-flex items-baseline">
+                  <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
+                    {displayText}
+                  </span>
+                  <span className={`bg-gradient-to-r from-teal-400 to-cyan-300 bg-clip-text text-transparent transition-opacity duration-100 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
                 </span>
-                <span className={`bg-gradient-to-r from-teal-400 to-cyan-300 bg-clip-text text-transparent transition-opacity duration-100 ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
               </h1>
               <p className="text-base sm:text-lg text-slate-400 max-w-xl leading-relaxed">
                 A passionate full-stack developer crafting <span className="text-teal-400 font-semibold">beautiful, scalable</span> digital experiences with modern technologies and creative solutions.
@@ -146,11 +148,25 @@ export default function Hero() {
             className="flex justify-center items-center mt-8 lg:mt-0"
           >
             <div className="relative w-full max-w-[280px] sm:max-w-xs lg:max-w-sm h-[280px] sm:h-[320px] lg:h-[400px]">
+              {/* Mobile Glow Effect */}
+              <div className="lg:hidden absolute inset-0 rounded-2xl bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 opacity-30 blur-2xl animate-pulse" />
+              
               {/* Single Rotating Border */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-[-12px] rounded-2xl border-2 border-teal-400/40"
+                className="absolute inset-[-12px] rounded-2xl border-2 border-teal-400/40 lg:border-teal-400/40 hidden lg:block"
+                style={{ zIndex: 0 }}
+              />
+              
+              {/* Mobile: Animated Border */}
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                  opacity: [0.5, 0.8, 0.5]
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="lg:hidden absolute inset-[-8px] rounded-2xl border-2 border-teal-400/60"
                 style={{ zIndex: 0 }}
               />
 
@@ -168,9 +184,17 @@ export default function Hero() {
                     src="/pfp.jpg"
                     alt="Fortunato"
                     initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="w-full h-full object-cover"
+                    animate={{ 
+                      opacity: 1, 
+                      scale: 1,
+                      y: [0, -5, 0]
+                    }}
+                    transition={{ 
+                      opacity: { duration: 0.8 },
+                      scale: { duration: 0.8 },
+                      y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                    }}
+                    className="w-full h-full object-cover lg:animate-none"
                     onError={(e) => {
                       e.target.onerror = null;
                       // Fallback: show User icon instead
