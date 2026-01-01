@@ -21,7 +21,7 @@ const projects = [
     tags: ['React', 'JavaScript', 'CSS', 'Local Storage'],
     image: '✓',
     color: 'from-teal-500',
-    link: '#',
+    link: 'https://nonaseih.github.io/Task-Manager/',
   },
   {
     title: 'Digital Product Interface',
