@@ -29,7 +29,7 @@ const projects = [
     tags: ['UI Systems', 'Design Tokens', 'Accessibility', 'Figma'],
     image: '🖥️',
     color: 'from-purple-500',
-    link: '#',
+    link: 'https://nonaseih.github.io/Digital-Product-Interface/',
   },
   {
     title: 'E-Commerce Platform',
